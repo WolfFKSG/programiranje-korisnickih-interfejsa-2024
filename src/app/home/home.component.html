@@ -1,20 +1,49 @@
 <div *ngIf="recommended" class="container">
-  <mat-card class="example-card" appearance="outlined" *ngFor="let flight of recommended">
-    <img mat-card-image [src]="generateImageUrl(flight.destination)" alt="Photo of a Shiba Inu"/>
+  <mat-card
+    class="example-card"
+    appearance="outlined"
+    *ngFor="let flight of recommended"
+  >
+    <img
+      mat-card-image
+      [src]="generateImageUrl(flight.destination)"
+      alt="Photo of a Shiba Inu"
+    />
     <mat-card-content>
-        <h1>{{flight.destination}}</h1>
+      <h1>{{ flight.destination }}</h1>
       <mat-list role="list">
-        <mat-list-item role="listitem">Scheduled at: {{formatDate(flight.scheduledAt)}}</mat-list-item>
-        <mat-list-item role="listitem">Item 2</mat-list-item>
-        <mat-list-item role="listitem">Item 3</mat-list-item>
+        <mat-list-item role="listitem"
+          >Scheduled at: {{ formatDate(flight.scheduledAt) }}</mat-list-item
+        >
+        <mat-list-item role="listitem"
+          >Flight number: {{ flight.flightNumber }}</mat-list-item
+        >
+        <mat-list-item role="listitem"
+          >Plane model: {{ flight.plane }}</mat-list-item
+        >
       </mat-list>
-      
     </mat-card-content>
     <mat-card-actions>
-      <a mat-button [routerLink]="['/flight/',flight.id]">
-        <i class="fa-solid fa-circle-info"></i> Details</a>
-      <a mat-button [routerLink]="['/book/',flight.id]">
-        <i class="fa-solid fa-up-right-from-square"></i> Book now</a>
+      <a mat-button [routerLink]="['/flight/', flight.id]">
+        <i class="fa-solid fa-circle-info"></i> Details</a
+      >
+      <a mat-button [routerLink]="['/book/', flight.id]">
+        <i class="fa-solid fa-up-right-from-square"></i> Book now</a
+      >
     </mat-card-actions>
+  </mat-card>
+</div>
+<div class="container search-container">
+  <mat-card appearance="outlined">
+    <mat-card-content>
+      <mat-form-field>
+        <mat-label>Enter your email</mat-label>
+        <input matInput placeholder="pat@example.com" required/>
+      </mat-form-field>
+      <mat-card-actions>
+        <a mat-button [routerLink]="['/search/']">
+          <i class="fa-solid fa-search"></i> Search now</a>
+      </mat-card-actions>
+    </mat-card-content>
   </mat-card>
 </div>

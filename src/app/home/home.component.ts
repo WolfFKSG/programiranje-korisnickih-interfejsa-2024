@@ -5,25 +5,28 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { RouterLink } from '@angular/router';
 import { MatListModule} from '@angular/material/list'; 
+import { FlightModel } from '../models/flight.model';
+import { PageModel } from '../models/page.model';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MatCardModule, MatButtonModule, HttpClientModule, NgIf, NgFor, RouterLink, MatListModule],
+  imports: [MatCardModule, MatButtonModule, HttpClientModule, NgIf, NgFor, RouterLink, MatListModule, MatFormFieldModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
 export class HomeComponent implements OnInit{
 
   public client: HttpClient 
-  public recommended: any[] = []  
+  public recommended: FlightModel[]= []  
   constructor(private httpClient: HttpClient) {
     this.client = httpClient
   }
   ngOnInit(): void {
     const url =
     'https://flight.pequla.com/api/flight?page=0&size=3&type=departure&sort=scheduledAt,desc';
-  this.client.get<any>(url, {
+  this.client.get<PageModel<FlightModel>>(url, {
       headers: {
         'Accept': 'application/json',
       }
