@@ -10,9 +10,20 @@
   p, h1, h2, h3 {
     color: white !important;
   }
+
 .container {
     margin-top: 30px;
     display: flex;
     justify-content: center;
     gap: 10px;
-}
+ }
+
+ .search-card {
+    width: 850px;
+ }
+
+ .search-form {
+    display: flex;
+    justify-content: left;
+    gap: 5px;
+ }
