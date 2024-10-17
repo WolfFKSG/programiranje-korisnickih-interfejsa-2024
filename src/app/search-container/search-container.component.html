@@ -5,45 +5,35 @@
         <form class="search-form">
           <mat-form-field class="search-field">
               <mat-label>Choose destination</mat-label>
-              <mat-select [(value)]="defaultDestination">
+              <mat-select [(value)]="sDestination">
                 <mat-option [value]="dest" *ngFor="let dest of destinations">{{dest}}</mat-option>
               </mat-select>
             </mat-form-field>
             <mat-form-field class="search-field">
               <mat-label>Choose airline</mat-label>
-              <mat-select [(value)]="defaultAirline">
+              <mat-select [(value)]="sAirline">
                 <mat-option [value]="airline" *ngFor="let airline of airlines">{{airline}}</mat-option>
               </mat-select>
             </mat-form-field>
             <mat-form-field class="search-field">
               <mat-label>Choose class</mat-label>
-              <mat-select [(value)]="defaultFlightClass">
+              <mat-select [(value)]="sFlightClass">
                 <mat-option [value]="cls" *ngFor="let cls of flightClass">{{cls}}</mat-option>
               </mat-select>
             </mat-form-field>
             <mat-form-field class="search-field">
               <mat-label>Return</mat-label>
-              <mat-select [(value)]="defaultReturn">
+              <mat-select [(value)]="sReturn">
                 <mat-option [value]="true" >Yes</mat-option>
                 <mat-option [value]="false" >No</mat-option>
               </mat-select>
             </mat-form-field>
-          <!-- <mat-form-field class="example-full-width">
-            <mat-label>Favorite food</mat-label>
-            <input matInput placeholder="Ex. Pizza" value="Sushi">
-          </mat-form-field>
-        
-          <mat-form-field class="example-full-width">
-            <mat-label>Leave a comment</mat-label>
-            <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
-          </mat-form-field> -->
         </form>
-        
       </mat-card-content> 
       <mat-card-actions>
-          <a mat-button [routerLink]="['/search?destination='+defaultDestination+'&airline='+defaultAirline]">
+          <button mat-button type="button" (click)="doSearch()">
             <i class="fa-solid fa-search"></i> Search now
-          </a>
+          </button>
         </mat-card-actions>
     </mat-card>
   </div>

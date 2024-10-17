@@ -1,10 +1,10 @@
 <div *ngIf="recommended" class="container">
   <mat-card class="example-card" appearance="outlined" *ngFor="let flight of recommended">
-    <img mat-card-image [src]="generateImageUrl(flight.destination)"alt="Photo of a Shiba Inu"/>
+    <img mat-card-image [src]="[webService.generateImageUrl(flight.destination)]" alt="{{flight.destination}}"/>
     <mat-card-content>
       <h1>{{ flight.destination }}</h1>
       <mat-list role="list">
-        <mat-list-item role="listitem">Scheduled at: {{formatDate(flight.scheduledAt) }}</mat-list-item>
+        <mat-list-item role="listitem">Scheduled at: {{dataService.formatDate(flight.scheduledAt) }}</mat-list-item>
         <mat-list-item role="listitem">Flight number: {{flight.flightNumber }}</mat-list-item>
         <mat-list-item role="listitem">Plane model: {{flight.plane }}</mat-list-item>
       </mat-list>

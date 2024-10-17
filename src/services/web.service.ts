@@ -24,6 +24,14 @@ export class WebService {
       }
     })
    }
+   public getFlightsByDestination(dest: string) {
+    const url = `${this.baseUrl}/flight/destination/${dest}?page=0&size=30&sort=scheduledAt,desc`
+    return this.client.get<PageModel<FlightModel>>(url, {
+      headers: {
+        'Accept': 'application/json',
+      }
+    })
+   }
 
    public getAvailableDestinations() {
     const url = `${this.baseUrl}/flight/destination?type=departure`
@@ -34,5 +42,8 @@ export class WebService {
     })
    }
 
+   public generateImageUrl( dest: string) {
+    return `https://img.pequla.com/destination/${dest.split(' ')[0].toLowerCase()}.jpg`
+  }
 
 }
