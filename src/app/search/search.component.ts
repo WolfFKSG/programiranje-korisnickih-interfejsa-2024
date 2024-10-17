@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { WebService } from '../../services/web.service';
 import { DataService } from '../../services/data.service';
@@ -12,16 +12,19 @@ import { Router, RouterLink } from '@angular/router';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { FlightModel } from '../models/flight.model';
+import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 
 
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [MatCardModule, MatInputModule, MatSelectModule, MatButtonModule, NgIf, NgFor, HttpClientModule, RouterLink, MatPaginator, MatPaginatorModule, MatTableModule],
+  imports: [MatCardModule, MatInputModule, MatSelectModule, MatButtonModule, NgIf, NgFor, HttpClientModule, 
+            RouterLink, MatPaginator, MatPaginatorModule, MatTableModule, MatSortModule],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css'
 })
-export class SearchComponent implements OnInit, AfterViewInit{
+export class SearchComponent implements OnInit{
 
   
   private webService: WebService
@@ -35,6 +38,9 @@ export class SearchComponent implements OnInit, AfterViewInit{
   public sFlightClass: string | null = null
   public sReturn: boolean | null = null
 
+
+  private _liveAnnouncer = inject(LiveAnnouncer);
+
   constructor (private router: Router, private route: ActivatedRoute) { 
     
     this.webService = new WebService()
@@ -47,6 +53,8 @@ export class SearchComponent implements OnInit, AfterViewInit{
   public displayedColumns: string[] = ['number', 'destination', 'scheduled', 'action'];
   public dataSource: MatTableDataSource<FlightModel> | null = null
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null
+  @ViewChild(MatSort) sort: MatSort = new MatSort
+
   ngOnInit(): void {
       this.route.queryParams.subscribe(params => {
         this.sDestination = params['destination']
@@ -74,10 +82,21 @@ export class SearchComponent implements OnInit, AfterViewInit{
     this.webService.getFlightsByDestination(this.sDestination!).subscribe(rsp=>{
       this.dataSource = new MatTableDataSource<FlightModel>(rsp.content)
       this.dataSource.paginator = this.paginator
+      this.dataSource.sort = this.sort
     })
     console.log(this.sDestination, this.sAirline, this.sFlightClass, this.sReturn)
   }
 
+  announceSortChange(sortState: Sort) {
+    // This example uses English messages. If your application supports
+    // multiple language, you would internationalize these strings.
+    // Furthermore, you can customize the message to add additional
+    // details about the values being sorted.
+    if (sortState.direction) {
+      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+      this._liveAnnouncer.announce('Sorting cleared');
+    }
 
-
+  }
 }
