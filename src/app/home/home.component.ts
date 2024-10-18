@@ -11,11 +11,13 @@ import {MatSelectModule} from '@angular/material/select';
 import { WebService } from '../../services/web.service';
 import { DataService } from '../../services/data.service';
 import { SearchContainerComponent } from '../search-container/search-container.component';
+import { NgxSkeletonLoaderModule} from 'ngx-skeleton-loader';
+
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MatCardModule, MatButtonModule, HttpClientModule, NgIf, NgFor, RouterLink, MatListModule, MatInputModule, MatSelectModule, SearchContainerComponent],
+  imports: [MatCardModule, MatButtonModule, HttpClientModule, NgIf, NgFor, RouterLink, MatListModule, MatInputModule, MatSelectModule, SearchContainerComponent, NgxSkeletonLoaderModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })

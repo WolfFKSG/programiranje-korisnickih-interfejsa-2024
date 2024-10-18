@@ -1,4 +1,4 @@
-<div *ngIf="recommended" class="container">
+<div *ngIf="recommended.length >0 else loading" class="container">
   <mat-card class="example-card" appearance="outlined" *ngFor="let flight of recommended">
     <img mat-card-image [src]="[webService.generateImageUrl(flight.destination)]" alt="{{flight.destination}}"/>
     <mat-card-content>
@@ -17,4 +17,12 @@
     </mat-card-actions>
   </mat-card>
 </div>
+<ng-template #loading>
+  <mat-card class="loading-card" appearance="outlined">
+    <mat-card-content>
+      <h1 class="text-white"> Loading data... Please wait!</h1>
+      <p>If this is taking too long please contact our administrator</p>
+    </mat-card-content>
+  </mat-card>
+</ng-template>
 <app-search-container />

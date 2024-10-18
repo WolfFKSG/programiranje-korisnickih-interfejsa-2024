@@ -1,4 +1,4 @@
-import { Component, inject, ViewChild } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { WebService } from '../../services/web.service';
 import { DataService } from '../../services/data.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -24,7 +24,7 @@ import { SearchContainerComponent } from "../search-container/search-container.c
   templateUrl: './search.component.html',
   styleUrl: './search.component.css'
 })
-export class SearchComponent{
+export class SearchComponent implements OnInit{
 
   
   private webService: WebService
@@ -36,6 +36,12 @@ export class SearchComponent{
     
     this.webService = WebService.getInstance()
     this.dataService = DataService.getInstance()
+  }
+
+  ngOnInit(): void {
+    const criteria = this.dataService.getSearchCriteria()
+    if(criteria.destination)
+      this.loadTableData(criteria.destination)
   }
 
   public displayedColumns: string[] = ['number', 'destination', 'scheduled', 'action'];
@@ -60,6 +66,15 @@ export class SearchComponent{
       this.dataSource.paginator = this.paginator
       this.dataSource.sort = this.sort
     })
+    this.loadTableData(criteria.destination)
+  }
+
+  private loadTableData(dest: string) {
+    this.webService.getFlightsByDestination(dest).subscribe(rsp=>{
+      this.dataSource = new MatTableDataSource<FlightModel>(rsp.content)
+      this.dataSource.paginator = this.paginator
+      this.dataSource.sort = this.sort
+  })
   }
 
   public announceSortChange(sortState: Sort) {

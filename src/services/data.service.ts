@@ -37,18 +37,18 @@ export class DataService {
   }
 
   public getSearchCriteria():SearchModel {
-    if(!localStorage.getItem('search'))
-      localStorage.setItem('search', JSON.stringify({
+    if(!sessionStorage.getItem('search'))
+      sessionStorage.setItem('search', JSON.stringify({
       airline: null,
       destination: null,
       flightClass: null,
       isReturn: false
     }))
 
-    return JSON.parse(localStorage.getItem('search')!)
+    return JSON.parse(sessionStorage.getItem('search')!)
   }
 
   public saveSearchCriteria(search: SearchModel) {
-    localStorage.setItem('search', JSON.stringify(search))
+    sessionStorage.setItem('search', JSON.stringify(search))
   }
 }

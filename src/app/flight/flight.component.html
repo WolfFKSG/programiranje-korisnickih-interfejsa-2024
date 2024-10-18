@@ -19,11 +19,11 @@
                 <mat-list-item role="listitem">Flight number: {{flight.flightNumber }}</mat-list-item>
                 <mat-list-item role="listitem">Plane model: {{flight.plane }}</mat-list-item>
               </mat-list>
+              <mat-card-actions>
+                <a mat-button [routerLink]="['/book/', flight.id]">
+                  <i class="fa-solid fa-up-right-from-square"></i> Book now</a>
+            </mat-card-actions>
         </mat-card-content>
-        <mat-card-actions>
-            <a mat-button [routerLink]="['/book/', flight.id]">
-              <i class="fa-solid fa-up-right-from-square"></i> Book now</a>
-        </mat-card-actions>
       </mat-card>
       <mat-card class="flight-card">
         <iframe mat-card-image class="flight-map" [src]="generateMapLink() | safe" 
