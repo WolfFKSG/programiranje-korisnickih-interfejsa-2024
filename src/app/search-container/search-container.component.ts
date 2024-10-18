@@ -1,11 +1,13 @@
-import { Component, Input, NgModule } from '@angular/core';
+import { Component, EventEmitter, Input, NgModule, OnInit, Output } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, OutletContext } from '@angular/router';
 import { Router } from '@angular/router';
+import { DataService } from '../../services/data.service';
+import { WebService } from '../../services/web.service';
 
 @Component({
   selector: 'app-search-container',
@@ -14,30 +16,46 @@ import { Router } from '@angular/router';
   templateUrl: './search-container.component.html',
   styleUrl: './search-container.component.css'
 })
-export class SearchContainerComponent {
+export class SearchContainerComponent implements OnInit{
 
-  @Input() destinations: string[] | undefined
-  @Input() airlines: string[] | undefined
-  @Input() flightClass: string[] | undefined
-  public sDestination: string | null = null
-  public sAirline: string | null = null
-  public sFlightClass: string | null = null
-  public sReturn: boolean | null = null
+  @Output() onSearch: EventEmitter<any> = new EventEmitter();
+  public selectedDestination: string | null 
+  public selectedAirline: string | null 
+  public selectedFlightClass: string | null 
+  public selectedReturn: boolean
 
-  constructor( private router: Router, private activeRoute: ActivatedRoute){}
+  public dataService: DataService
+  public webService: WebService
+  public destinations: string[] = []
 
-  public onChange() {
-
+  constructor( private router: Router, private activeRoute: ActivatedRoute){
+    this.dataService = DataService.getInstance()
+    this.webService = WebService.getInstance()
+   
+    const criteria = this.dataService.getSearchCriteria()
+    this.selectedDestination = criteria.destination
+    this.selectedAirline = criteria.airline
+    this.selectedFlightClass = criteria.flightClass
+    this.selectedReturn = criteria.isReturn
+  }
+  ngOnInit(): void {
+    this.webService.getAvailableDestinations().subscribe(rsp => this.destinations = rsp)
   }
 
   public doSearch() {
+    // Save current search criteria
+    this.dataService.saveSearchCriteria({
+      destination: this.selectedDestination,
+      airline: this.selectedAirline,
+      flightClass: this.selectedFlightClass,
+      isReturn: this.selectedReturn
+    })
     if (this.router.url !="/search") {
       this.router.navigate(['/search'], {relativeTo: this.activeRoute})
       return
     }
-    console.log(this.sDestination, this.sAirline, this.sFlightClass, this.sReturn)
+    // Emit search event
+    this.onSearch.emit()
+
   }
-
-
-
 }

@@ -5,25 +5,25 @@
         <form class="search-form">
           <mat-form-field class="search-field">
               <mat-label>Choose destination</mat-label>
-              <mat-select [(value)]="sDestination">
+              <mat-select [(value)]="selectedDestination">
                 <mat-option [value]="dest" *ngFor="let dest of destinations">{{dest}}</mat-option>
               </mat-select>
             </mat-form-field>
             <mat-form-field class="search-field">
               <mat-label>Choose airline</mat-label>
-              <mat-select [(value)]="sAirline">
-                <mat-option [value]="airline" *ngFor="let airline of airlines">{{airline}}</mat-option>
+              <mat-select [(value)]="selectedAirline">
+                <mat-option [value]="airline" *ngFor="let airline of dataService.getAirlines()">{{airline}}</mat-option>
               </mat-select>
             </mat-form-field>
             <mat-form-field class="search-field">
               <mat-label>Choose class</mat-label>
-              <mat-select [(value)]="sFlightClass">
-                <mat-option [value]="cls" *ngFor="let cls of flightClass">{{cls}}</mat-option>
+              <mat-select [(value)]="selectedFlightClass">
+                <mat-option [value]="cls" *ngFor="let cls of dataService.getFlightClass()">{{cls}}</mat-option>
               </mat-select>
             </mat-form-field>
             <mat-form-field class="search-field">
               <mat-label>Return</mat-label>
-              <mat-select [(value)]="sReturn">
+              <mat-select [(value)]="selectedReturn">
                 <mat-option [value]="true" >Yes</mat-option>
                 <mat-option [value]="false" >No</mat-option>
               </mat-select>

@@ -1,42 +1,4 @@
-<div *ngIf="destinations" class="container search-container">
-    <mat-card appearance="outlined" class="search-card">
-      <mat-card-content>
-        <h1>Search for your destination</h1>
-        <form class="search-form">
-          <mat-form-field class="search-field">
-              <mat-label>Choose destination</mat-label>
-              <mat-select [(value)]="sDestination">
-                <mat-option [value]="dest" *ngFor="let dest of destinations">{{dest}}</mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field class="search-field">
-              <mat-label>Choose airline</mat-label>
-              <mat-select [(value)]="sAirline">
-                <mat-option [value]="airline" *ngFor="let airline of airlines">{{airline}}</mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field class="search-field">
-              <mat-label>Choose class</mat-label>
-              <mat-select [(value)]="sFlightClass">
-                <mat-option [value]="cls" *ngFor="let cls of flightClass">{{cls}}</mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field class="search-field">
-              <mat-label>Return</mat-label>
-              <mat-select [(value)]="sReturn">
-                <mat-option [value]="true" >Yes</mat-option>
-                <mat-option [value]="false" >No</mat-option>
-              </mat-select>
-            </mat-form-field>
-        </form>
-      </mat-card-content> 
-      <mat-card-actions>
-          <button mat-button type="button" (click)="doSearch()">
-            <i class="fa-solid fa-search"></i> Search now
-          </button>
-        </mat-card-actions>
-    </mat-card>
-  </div>
+<app-search-container (onSearch)="doSearch()"/>
   <div class="mat-elevation-z8 table-wrapper" *ngIf="dataSource">
     <mat-card appearance="outlined">
         <mat-card-content>
@@ -64,7 +26,9 @@
             <!-- Action Column -->
             <ng-container matColumnDef="action">
                 <th mat-header-cell *matHeaderCellDef> Action </th>
-                <td mat-cell *matCellDef="let element"> <a routerLink="/flight/{{element.id}}" mat-button ><i class="fa-solid fa-circle-info"></i> Details</a> </td>
+                <td mat-cell *matCellDef="let element"> <a routerLink="/flight/{{element.id}}" mat-button ><i class="fa-solid fa-circle-info"></i> Details</a> 
+                  <a mat-button [routerLink]="['/book/', element.id]">
+                    <i class="fa-solid fa-up-right-from-square"></i> Book now</a></td>
             </ng-container>
         
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
