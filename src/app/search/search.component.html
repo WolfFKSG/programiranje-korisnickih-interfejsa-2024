@@ -1,8 +1,7 @@
 <app-search-container (onSearch)="doSearch()"/>
-  <div class="mat-elevation-z8 table-wrapper" *ngIf="dataSource">
-    <mat-card appearance="outlined">
+  <div class="mat-elevation-z8 table-wrapper" *ngIf="data">
+    <mat-card appearance="outlined" *ngIf="dataSource">
         <mat-card-content>
-            
             <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
         
             <!-- Flight number Column -->
@@ -23,6 +22,25 @@
                 <td mat-cell *matCellDef="let element"> {{dataService.formatDate(element.scheduledAt)}} </td>
             </ng-container>
         
+            <!-- Estimated at Column -->
+            <ng-container matColumnDef="estimated">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Estimated At</th>
+                <td mat-cell *matCellDef="let element"> 
+                  {{element.estimatedAt?dataService.formatDate(element.estimatedAt): 'On Time'}} </td>
+            </ng-container>
+        
+            <!-- Plane Column -->
+            <ng-container matColumnDef="plane">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Plane </th>
+                <td mat-cell *matCellDef="let element"> {{element.plane?element.plane:'N/A'}} </td>
+            </ng-container>
+        
+            <!-- Gate Column -->
+            <ng-container matColumnDef="gate">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Gate </th>
+                <td mat-cell *matCellDef="let element"> {{element.gate?element.gate:'N/A'}} </td>
+            </ng-container>
+        
             <!-- Action Column -->
             <ng-container matColumnDef="action">
                 <th mat-header-cell *matHeaderCellDef> Action </th>
@@ -35,9 +53,9 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
         
-            <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+            <mat-paginator [length]="data.numberOfElements" [pageSize]="data.size" [pageSizeOptions]="[5, 10, 20, 30]"
                         showFirstLastButtons
-                        aria-label="Select page of periodic elements">
+                        aria-label="Select page and size">
             </mat-paginator>
         </mat-card-content>
     </mat-card>
