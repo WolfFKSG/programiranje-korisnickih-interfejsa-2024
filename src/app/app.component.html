@@ -4,6 +4,10 @@
   <a routerLink="/" mat-button>Home</a>
   <a routerLink="/about" mat-button>About</a>
   <a routerLink="/search" mat-button>Search</a>
+  <a routerLink="/profile" mat-button *ngIf="userService.hasCurrentUser(); else profile">Profile</a>
 </mat-toolbar>
-
 <router-outlet />
+
+<ng-template #profile>
+  <a routerLink="/login" mat-button>Login</a>
+</ng-template>

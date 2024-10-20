@@ -1,29 +1,31 @@
 <mat-card class="signup-form" appearance="outlined">
   <mat-card-header>
-    <h1>Signup now</h1>
+      <h1>Signup now</h1>
   </mat-card-header>
-  <mat-card-content>    
-    <mat-form-field class="width-full">
-      <mat-label>Email</mat-label>
-      <input type="email" matInput>
-    </mat-form-field>
-    <mat-form-field class="width-full">
-      <mat-label>Name</mat-label>
-      <input type="text" matInput>
-    </mat-form-field>
-    <mat-form-field class="width-full">
-      <mat-label>Password</mat-label>
-      <input type="password" matInput>
-    </mat-form-field>
-    <mat-form-field class="width-full">
-      <mat-label>Confirm Password</mat-label>
-      <input type="password" matInput>
-    </mat-form-field>
+  <mat-card-content>
+      <mat-form-field class="width-full">
+          <mat-label>Email</mat-label>
+          <input type="email" matInput (change)="updateEmail($event)">
+      </mat-form-field>
+      <mat-form-field class="width-full">
+          <mat-label>Name</mat-label>
+          <input type="text" matInput (change)="updateName($event)">
+      </mat-form-field>
+      <mat-form-field class="width-full">
+          <mat-label>Password</mat-label>
+          <input type="password" matInput (change)="updatePassword($event)">
+      </mat-form-field>
+      <mat-form-field class="width-full">
+          <mat-label>Confirm password</mat-label>
+          <input type="password" matInput (change)="updateConfirmPassword($event)">
+      </mat-form-field>
   </mat-card-content>
   <mat-card-actions>
-    <a mat-button>
-        <i class="fa-solid fa-paper-plane"></i> Submit</a>
-    <a mat-button routerLink="login" >
-      <i class="fa-solid fa-up-right-from-square"></i>Login page</a>
+      <button mat-button type="button" (click)="doSignup()">
+          <i class="fa-solid fa-paper-plane"></i> Signup now
+      </button>
+      <a mat-button routerLink="/login">
+          <i class="fa-solid fa-up-right-from-square"></i> Login page
+      </a>
   </mat-card-actions>
 </mat-card>

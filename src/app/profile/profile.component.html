@@ -1,0 +1,87 @@
+<div class="container" *ngIf="active">
+    <mat-card class="example-card" appearance="outlined">
+        <mat-card-header>
+            <img [src]="getAvatarUrl()" mat-card-avatar>
+            <mat-card-title class="text-white">{{active.name}}</mat-card-title>
+            <mat-card-subtitle>{{active.email}}</mat-card-subtitle>
+        </mat-card-header>
+        <!-- <mat-card-content>
+        </mat-card-content> -->
+        <mat-card-actions>
+            <button mat-button type="button" (click)="doLogout()">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </button>
+            <button mat-button type="button" (click)="doPasswordChange()">
+                <i class="fa-solid fa-key"></i> Change password
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</div>
+<div class="mat-elevation-z8 table-wrapper" *ngIf="dataSource">
+    <mat-card appearance="outlined">
+        <mat-card-content>
+            <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
+
+                <!-- Flight Number Column -->
+                <ng-container matColumnDef="flightNumber">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Flight Number </th>
+                    <td mat-cell *matCellDef="let element"> {{element.flight.flightNumber}} </td>
+                </ng-container>
+
+                <!-- Destination Column -->
+                <ng-container matColumnDef="destination">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Destination </th>
+                    <td mat-cell *matCellDef="let element"> {{element.flight.destination}} </td>
+                </ng-container>
+
+                <!-- Scheduled At Column -->
+                <ng-container matColumnDef="scheduledAt">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Scheduled At </th>
+                    <td mat-cell *matCellDef="let element"> {{dataService.formatDate(element.flight.scheduledAt)}} </td>
+                </ng-container>
+
+                <!-- Estimated At Column -->
+                <ng-container matColumnDef="estimatedAt">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Estimated At </th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.flight.estimatedAt?dataService.formatDate(element.flight.estimatedAt): 'On Time'}}
+                    </td>
+                </ng-container>
+
+                <!-- Estimated At Column -->
+                <ng-container matColumnDef="plane">
+                    <th mat-header-cell *matHeaderCellDef> Airplane model </th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.flight.plane?element.flight.plane:'N/A'}}
+                    </td>
+                </ng-container>
+
+                <!-- Estimated At Column -->
+                <ng-container matColumnDef="gate">
+                    <th mat-header-cell *matHeaderCellDef> Gate </th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.flight.gate?element.flight.gate:'N/A'}}
+                    </td>
+                </ng-container>
+
+                <!-- Action Column -->
+                <ng-container matColumnDef="rating">
+                    <th mat-header-cell *matHeaderCellDef> Rating </th>
+                    <td mat-cell *matCellDef="let element">
+                        <button type="button" mat-button (click)="doLikeButton(element.id)">
+                            <i class="fa-regular fa-thumbs-up" *ngIf="element.review != 1"></i>
+                            <i class="fa-solid fa-thumbs-up" *ngIf="element.review == 1"></i>
+                        </button>
+                        <button type="button" mat-button (click)="doDislikeButton(element.id)">
+                            <i class="fa-regular fa-thumbs-down" *ngIf="element.review != 2"></i>
+                            <i class="fa-solid fa-thumbs-down" *ngIf="element.review == 2"></i>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </mat-card-content>
+    </mat-card>
+</div>

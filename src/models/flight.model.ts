@@ -7,8 +7,8 @@ export interface FlightModel {
     flightKey: string
     flightNumber: string,
     destination: string,
-    scheduledAt:string,
-    estimatedAt:string | null,
+    scheduledAt: string,
+    estimatedAt: string | null,
     connectedType: number,
     connectedFlight: string | null,
     plane: string,

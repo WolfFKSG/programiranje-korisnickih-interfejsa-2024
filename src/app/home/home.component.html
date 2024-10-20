@@ -1,28 +1,31 @@
-<div *ngIf="recommended.length >0 else loading" class="container">
+<div *ngIf="recommended.length > 0 else loading" class="container">
   <mat-card class="example-card" appearance="outlined" *ngFor="let flight of recommended">
-    <img mat-card-image [src]="[webService.generateImageUrl(flight.destination)]" alt="{{flight.destination}}"/>
-    <mat-card-content>
-      <h1>{{ flight.destination }}</h1>
-      <mat-list role="list">
-        <mat-list-item role="listitem">Scheduled at: {{dataService.formatDate(flight.scheduledAt) }}</mat-list-item>
-        <mat-list-item role="listitem">Flight number: {{flight.flightNumber }}</mat-list-item>
-        <mat-list-item role="listitem">Plane model: {{flight.plane }}</mat-list-item>
-      </mat-list>
-    </mat-card-content>
-    <mat-card-actions>
-      <a mat-button [routerLink]="['/flight/', flight.id]">
-        <i class="fa-solid fa-circle-info"></i> Details</a>
-      <a mat-button [routerLink]="['/book/', flight.id]">
-        <i class="fa-solid fa-up-right-from-square"></i> Book now</a>
-    </mat-card-actions>
+      <img mat-card-image [src]="[webService.generateImageUrl(flight.destination)]" alt="{{flight.destination}}">
+      <mat-card-content>
+          <h1>{{flight.destination}}</h1>
+          <mat-list role="list">
+              <mat-list-item role="listitem">Scheduled at:
+                  {{dataService.formatDate(flight.scheduledAt)}}</mat-list-item>
+              <mat-list-item role="listitem">Flight number: {{flight.flightNumber}}</mat-list-item>
+              <mat-list-item role="listitem">Airplane model: {{flight.plane}}</mat-list-item>
+          </mat-list>
+      </mat-card-content>
+      <mat-card-actions>
+          <a mat-button [routerLink]="['/flight/',flight.id]">
+              <i class="fa-solid fa-circle-info"></i> Details
+          </a>
+          <a mat-button [routerLink]="['/book/',flight.id]">
+              <i class="fa-solid fa-up-right-from-square"></i> Book now
+          </a>
+      </mat-card-actions>
   </mat-card>
 </div>
 <ng-template #loading>
   <mat-card class="loading-card" appearance="outlined">
-    <mat-card-content>
-      <h1 class="text-white"> Loading data... Please wait!</h1>
-      <p>If this is taking too long please contact our administrator</p>
-    </mat-card-content>
+      <mat-card-content>
+          <h1 class="text-white">Loading data... Please wait!</h1>
+          <p>If this is taking too long please contact an administrator.</p>
+      </mat-card-content>
   </mat-card>
 </ng-template>
 <app-search-container />

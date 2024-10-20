@@ -1,76 +1,111 @@
 import { Injectable } from "@angular/core";
-import { UserModel } from "../app/models/user.model";
-import bcrypt from "bcrypt";
+import { UserModel, ReviewModel } from "../models/user.model";
 
 @Injectable({
     providedIn: 'root'
 })
+export class UserService {
 
-export class UserService{
-    
+    private static instance: UserService
+
+    private constructor() {
+    }
+
+    public static getInstance() {
+        if (this.instance == null)
+            this.instance = new UserService
+        return this.instance
+    }
+
     private retrieveAllUsers(): UserModel[] {
         let json = localStorage.getItem('users')
-        if(json == null){
-            localStorage.setItem('users', JSON.stringify([]))
+        if (json == null) {
+            const defaultUser = {
+                email: 'pkresoja@example.com',
+                name: 'Petar Kresoja',
+                password: 'pkresoja',
+                booked: [
+                    {
+                        id: 145324,
+                        flight: null,
+                        review: ReviewModel.NONE
+                    },
+                    {
+                        id: 145469,
+                        flight: null,
+                        review: ReviewModel.NONE
+                    }
+                ]
+            }
+            localStorage.setItem('users', JSON.stringify([defaultUser]))
             json = localStorage.getItem('users')
         }
+
         return JSON.parse(json!)
     }
 
     public createUser(model: UserModel) {
-        model.password = bcrypt.hashSync(model.password, 12)
+        const arr = this.retrieveAllUsers()
+        if (arr.find(user => user.email === model.email))
+            throw new Error('EMAIL_ALREADY_EXISTS')
 
-            const arr = this.retrieveAllUsers()
-            if(arr.find(user=> user.email = model.email))
-                throw new Error('EMAIL_ALREADY_EXISTS')
-
-            arr.push(model)
-            localStorage.setItem('users', JSON.stringify(arr))
+        arr.push(model)
+        localStorage.setItem('users', JSON.stringify(arr))
     }
 
-    public login(email:string, password:string) {
+    public login(email: string, password: string) {
         const arr = this.retrieveAllUsers()
-        const usr = arr.find(user=>user.email == email && bcrypt.compareSync(password, user.password))
-        if(usr == undefined)
+        const usr = arr.find(user => user.email == email && password == user.password)
+
+        if (usr == undefined)
             throw new Error('LOGIN_FAILED')
 
         sessionStorage.setItem('active', usr.email)
     }
 
     public getCurrentUser() {
-        if(!sessionStorage.getItem('active')) {
+        if (!sessionStorage.getItem('active'))
             throw new Error('NO_ACTIVE_USER')
-        }
 
         const email = sessionStorage.getItem('active')
         const arr = this.retrieveAllUsers()
-        const usr = arr.find(user=>user.email == email)
+        const usr = arr.find(user => user.email == email)
 
-        if(usr == undefined)
+        if (usr == undefined)
             throw new Error('NO_ACTIVE_USER')
 
         return usr
     }
 
+    public hasCurrentUser() {
+        return sessionStorage.getItem('active') ? true : false
+    }
+
     public changePassword(password: string) {
         const active = this.getCurrentUser()
-        active.password = bcrypt.hashSync(password, 12)
+        active.password = password
 
-        const all = this.retrieveAllUsers()
-        for(let user of all)
-            if(user.email == active.email){
-                user = active
+        var all = this.retrieveAllUsers()
+        for (let i = 0; i < all.length; i++) {
+            if (all[i].email == active.email) {
+                all[i].password = password
             }
-
+        }
         localStorage.setItem('users', JSON.stringify(all))
+    }
 
+    public updateUser(model: UserModel) {
+        var all = this.retrieveAllUsers()
+        for (let i = 0; i < all.length; i++) {
+            if (all[i].email == model.email) {
+                all[i] = model
+            }
+        }
+        localStorage.setItem('users', JSON.stringify(all))
     }
 
     public logout() {
-        const usr = this.getCurrentUser()
         sessionStorage.removeItem('active')
     }
-
-    
 
 }

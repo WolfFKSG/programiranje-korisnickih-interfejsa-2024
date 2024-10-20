@@ -1,43 +1,69 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { 
-    height: 100%; 
-
+html,
+body {
+    height: 100%;
 }
-body { 
-    margin: 0; 
-    font-family: Roboto, "Helvetica Neue", sans-serif; 
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
     background-color: #151515;
 }
 
-h1, h2, h3, h4, h5, p {
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
     color: white;
 }
+
 .example-card {
     max-width: 400px;
-  }
+}
 
 .container {
     margin-top: 30px;
     display: flex;
     justify-content: center;
     gap: 10px;
- }
+}
 
- .search-card {
+.search-card {
     width: 850px;
- }
+}
 
- .search-form {
+.search-form {
     display: flex;
     justify-content: left;
     gap: 5px;
- }
+}
 
- .text-white {
+.text-white {
     color: white;
- }
+}
 
- .text-orange {
-    color: orangered;
- }
+.text-orange {
+   color: #d35100
+}
+
+.signup-form {
+    width: 450px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.width-full {
+    width: 100%;
+}
+
+.table-wrapper {
+    margin-top: 15px;
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* #000000, #151515, #f8a145, #f07900 and #d35100. */

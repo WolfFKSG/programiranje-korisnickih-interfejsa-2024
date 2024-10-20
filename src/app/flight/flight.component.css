@@ -1,9 +1,8 @@
-/* .flight-wrapper {
+/* .flight-wrapper{
     width: 80%;
     height: 450px;
     margin-left: auto;
     margin-right: auto;
-
 }
 
 .custom-row {
@@ -14,28 +13,14 @@
 
 .flight-data-card {
     width: 100%;
-}
+} */
 
-html {
-    min-height: 100%;
-}
-
-
-body {
-    height: 100%;
-    margin: 0px;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-}
- */
- 
-.flight-wrapper {
+.flight-wrapper{
     width: 80%;
     height: 450px;
     margin-left: auto;
     margin-right: auto;
-
 }
-
 
 .flight-card {
     width: 49%;

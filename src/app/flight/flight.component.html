@@ -1,34 +1,33 @@
 <div class="flight-wrapper" *ngIf="flight">
-    <div class="breadcrumb text-white">
-        <a mat-button routerLink="/">Home</a>
-        &nbsp;/&nbsp;
-        <a mat-button routerLink="/search">Search</a>
-        &nbsp;/&nbsp;
-        <a mat-button>{{flight.destination}} ({{flight.flightNumber}})</a>
-
-    </div>
-
-    <h1>{{flight.destination}}</h1>
-   
-    <div class="flight-content">
-    <mat-card class="flight-card" appearance="outlined">
-        <img mat-card-image [src]="this.webService.generateImageUrl(flight.destination)" alt="{{flight.destination}}">
-        <mat-card-content>
-            <mat-list role="list">
-                <mat-list-item role="listitem">Scheduled at: {{dataService.formatDate(flight.scheduledAt) }}</mat-list-item>
-                <mat-list-item role="listitem">Flight number: {{flight.flightNumber }}</mat-list-item>
-                <mat-list-item role="listitem">Plane model: {{flight.plane }}</mat-list-item>
+  <div class="breadcrumb text-white">
+      <a mat-button routerLink="/">Home</a>
+      &nbsp;/&nbsp;
+      <a mat-button routerLink="/search">Search</a>
+      &nbsp;/&nbsp;
+      <a mat-button>{{flight.destination}} ({{flight.flightNumber}})</a>
+  </div>
+  <h1>{{flight.destination}}</h1>
+  <div class="flight-content">
+      <mat-card class="flight-card" appearance="outlined">
+          <img mat-card-image src="{{this.webService.generateImageUrl(flight.destination)}}"
+              alt="{{flight.destination}}">
+          <mat-card-content>
+              <mat-list role="list">
+                  <mat-list-item role="listitem">Scheduled at:
+                      {{dataService.formatDate(flight.scheduledAt)}}</mat-list-item>
+                  <mat-list-item role="listitem">Flight number: {{flight.flightNumber}}</mat-list-item>
+                  <mat-list-item role="listitem">Airplane model: {{flight.plane}}</mat-list-item>
               </mat-list>
-              <mat-card-actions>
-                <a mat-button [routerLink]="['/book/', flight.id]">
-                  <i class="fa-solid fa-up-right-from-square"></i> Book now</a>
-            </mat-card-actions>
-        </mat-card-content>
+          </mat-card-content>
+          <mat-card-actions>
+              <a mat-button [routerLink]="['/book/',flight.id]">
+                  <i class="fa-solid fa-up-right-from-square"></i> Book now
+              </a>
+          </mat-card-actions>
       </mat-card>
       <mat-card class="flight-card">
-        <iframe mat-card-image class="flight-map" [src]="generateMapLink() | safe" 
-        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" id="gmaps"></iframe>
+          <iframe class="flight-map" [src]="generateMapLink() | safe" allowfullscreen="" loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade" id="gmaps"></iframe>
       </mat-card>
-     
-</div>
+  </div>
 </div>

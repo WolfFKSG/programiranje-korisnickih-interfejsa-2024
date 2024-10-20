@@ -1,22 +1,19 @@
 import { Injectable } from '@angular/core';
-import { SearchModel } from '../app/models/search.model';
+import { SearchModel } from '../models/search.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-
   private static instance: DataService
-
-  private constructor() {}
-
+  private constructor() { }
 
   public static getInstance() {
-    if(DataService.instance == null)
-        DataService.instance = new DataService()
+    if (DataService.instance == null)
+      DataService.instance = new DataService()
 
     return DataService.instance;
-}
+  }
 
   public getAirlines(): string[] {
     return [
@@ -30,20 +27,18 @@ export class DataService {
     ]
   }
 
-
-
   public formatDate(iso: string) {
     return new Date(iso).toLocaleString('sr-RS')
   }
 
-  public getSearchCriteria():SearchModel {
-    if(!sessionStorage.getItem('search'))
+  public getSearchCriteria(): SearchModel {
+    if (!sessionStorage.getItem('search'))
       sessionStorage.setItem('search', JSON.stringify({
-      airline: null,
-      destination: null,
-      flightClass: null,
-      isReturn: false
-    }))
+        airline: null,
+        destination: null,
+        flighClass: null,
+        isReturn: false
+      }))
 
     return JSON.parse(sessionStorage.getItem('search')!)
   }

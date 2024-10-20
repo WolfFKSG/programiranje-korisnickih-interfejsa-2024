@@ -10,13 +10,13 @@ export interface PageModel<T> {
         paged: boolean
         unpaged: boolean
     }
+    last: boolean
     totalPages: number
     totalElements: number
-    last: boolean
     size: number
     number: number
     sort: SortModel
-    numberOfElements: number
     first: boolean
+    numberOfElements: number
     empty: boolean
 }

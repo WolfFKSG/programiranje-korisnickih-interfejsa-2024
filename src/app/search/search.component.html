@@ -1,63 +1,75 @@
-<app-search-container (onSearch)="doSearch()"/>
-  <div class="mat-elevation-z8 table-wrapper" *ngIf="data">
+<app-search-container (onSearch)="doSearch()" />
+<div class="mat-elevation-z8 table-wrapper" *ngIf="data">
     <mat-card appearance="outlined" *ngIf="dataSource">
         <mat-card-content>
             <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
-        
-            <!-- Flight number Column -->
-            <ng-container matColumnDef="number">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Flight Number </th>
-                <td mat-cell *matCellDef="let element"> {{element.flightNumber}} </td>
-            </ng-container>
-        
-            <!-- Destination Column -->
-            <ng-container matColumnDef="destination">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Destination </th>
-                <td mat-cell *matCellDef="let element"> {{element.destination}} </td>
-            </ng-container>
-        
-            <!-- Scheduled at Column -->
-            <ng-container matColumnDef="scheduled">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Scheduled At </th>
-                <td mat-cell *matCellDef="let element"> {{dataService.formatDate(element.scheduledAt)}} </td>
-            </ng-container>
-        
-            <!-- Estimated at Column -->
-            <ng-container matColumnDef="estimated">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Estimated At</th>
-                <td mat-cell *matCellDef="let element"> 
-                  {{element.estimatedAt?dataService.formatDate(element.estimatedAt): 'On Time'}} </td>
-            </ng-container>
-        
-            <!-- Plane Column -->
-            <ng-container matColumnDef="plane">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Plane </th>
-                <td mat-cell *matCellDef="let element"> {{element.plane?element.plane:'N/A'}} </td>
-            </ng-container>
-        
-            <!-- Gate Column -->
-            <ng-container matColumnDef="gate">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Gate </th>
-                <td mat-cell *matCellDef="let element"> {{element.gate?element.gate:'N/A'}} </td>
-            </ng-container>
-        
-            <!-- Action Column -->
-            <ng-container matColumnDef="action">
-                <th mat-header-cell *matHeaderCellDef> Action </th>
-                <td mat-cell *matCellDef="let element"> <a routerLink="/flight/{{element.id}}" mat-button ><i class="fa-solid fa-circle-info"></i> Details</a> 
-                  <a mat-button [routerLink]="['/book/', element.id]">
-                    <i class="fa-solid fa-up-right-from-square"></i> Book now</a></td>
-            </ng-container>
-        
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                <!-- Flight Number Column -->
+                <ng-container matColumnDef="number">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Flight Number </th>
+                    <td mat-cell *matCellDef="let element"> {{element.flightNumber}} </td>
+                </ng-container>
+
+                <!-- Destination Column -->
+                <ng-container matColumnDef="destination">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Destination </th>
+                    <td mat-cell *matCellDef="let element"> {{element.destination}} </td>
+                </ng-container>
+
+                <!-- Scheduled At Column -->
+                <ng-container matColumnDef="scheduled">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Scheduled At </th>
+                    <td mat-cell *matCellDef="let element"> {{dataService.formatDate(element.scheduledAt)}} </td>
+                </ng-container>
+
+                <!-- Estimated At Column -->
+                <ng-container matColumnDef="estimated">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Estimated At </th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.estimatedAt?dataService.formatDate(element.estimatedAt): 'On Time'}}
+                    </td>
+                </ng-container>
+
+                <!-- Estimated At Column -->
+                <ng-container matColumnDef="plane">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Airplane model </th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.plane?element.plane:'N/A'}}
+                    </td>
+                </ng-container>
+
+                <!-- Estimated At Column -->
+                <ng-container matColumnDef="gate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Gate </th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.gate?element.gate:'N/A'}}
+                    </td>
+                </ng-container>
+
+                <!-- Action Column -->
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef> Action </th>
+                    <td mat-cell *matCellDef="let element">
+                        <a routerLink="/flight/{{element.id}}" mat-button>
+                            <i class="fa-solid fa-circle-info"></i> Details
+                        </a>
+                        <a mat-button [routerLink]="['/book/',element.id]">
+                            <i class="fa-solid fa-up-right-from-square"></i> Book now
+                        </a>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
-        
-            <mat-paginator [length]="data.numberOfElements" [pageSize]="data.size" [pageSizeOptions]="[5, 10, 20, 30]"
-                        showFirstLastButtons
-                        aria-label="Select page and size">
+
+            <mat-paginator 
+            [pageSizeOptions]="[5, 10, 20, 30]"
+            [length]="data.numberOfElements"
+            [pageSize]="data.size"
+            showFirstLastButtons
+            aria-label="Select page and size">
             </mat-paginator>
         </mat-card-content>
     </mat-card>
-  </div>
-  
+</div>
